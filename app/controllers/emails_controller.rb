@@ -3,6 +3,15 @@ class EmailsController < ApplicationController
     @emails = Email.all
   end
 
+  def show
+    @email = find_email
+
+    respond_to do |format|
+      format.html { render text: @email.html_body }
+      format.text { render text: @email.text_body }
+    end
+  end
+
   def new
     @email = Email.new
   end
