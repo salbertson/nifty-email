@@ -9,10 +9,18 @@ class Email < ActiveRecord::Base
   end
 
   def generate_html
-    self.html_body = markdown_renderer.render(content)
+    content_html = markdown_renderer.render(content)
+    html_body = template_html.gsub(/\{\{ content \}\}/, content_html)
+    premailer = Premailer.new(html_body, :with_html_string => true)
+
+    self.html_body = premailer.to_inline_css
   end
 
   def markdown_renderer
     @markdown_renderer ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML.new)
+  end
+
+  def template_html
+    @template_html ||= File.read('app/assets/template.html')
   end
 end
