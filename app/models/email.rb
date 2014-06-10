@@ -10,7 +10,9 @@ class Email < ActiveRecord::Base
 
   def generate_body
     content_html = markdown_renderer.render(content)
-    html_body = template_html.gsub(/\{\{ content \}\}/, content_html)
+    html_body = template_html.
+      gsub('{{ content }}', content_html).
+      gsub('{{ title }}', title)
     premailer = Premailer.new(html_body, :with_html_string => true)
 
     self.html_body = premailer.to_inline_css
