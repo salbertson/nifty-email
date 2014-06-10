@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20140610033720) do
     t.string "slug"
     t.text   "content"
     t.text   "html_body"
-    t.string "text_body"
+    t.text   "text_body"
   end
 
   add_index "emails", ["slug"], name: "index_emails_on_slug", unique: true, using: :btree
