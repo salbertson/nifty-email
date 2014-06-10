@@ -1,6 +1,6 @@
 class Email < ActiveRecord::Base
   before_create :generate_slug
-  before_save :generate_html
+  before_save :generate_body
 
   private
 
@@ -8,12 +8,13 @@ class Email < ActiveRecord::Base
     self.slug = title.titleize.delete(" ").underscore.dasherize
   end
 
-  def generate_html
+  def generate_body
     content_html = markdown_renderer.render(content)
     html_body = template_html.gsub(/\{\{ content \}\}/, content_html)
     premailer = Premailer.new(html_body, :with_html_string => true)
 
     self.html_body = premailer.to_inline_css
+    self.text_body = premailer.to_plain_text
   end
 
   def markdown_renderer
