@@ -1,3 +1,3 @@
 <li>
-  <%= email.title %> - <%= link_to 'HTML', email_path(email, format: :html), target: :blank %> | <%= link_to 'Text', email_path(email, format: :text), target: :blank %> | <%= link_to 'Edit', edit_email_path(email) %> | <%= link_to 'Delete', email_path(email), method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= email.name %> - <%= link_to 'HTML', email_path(email, format: :html), target: :blank %> | <%= link_to 'Text', email_path(email, format: :text), target: :blank %> | <%= link_to 'Edit', edit_email_path(email) %> | <%= link_to 'Delete', email_path(email), method: :delete, data: { confirm: 'Are you sure?' } %>
 </li>

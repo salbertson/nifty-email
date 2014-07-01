@@ -7,8 +7,8 @@ class EmailsController < ApplicationController
     @email = find_email
 
     respond_to do |format|
-      format.html { render text: @email.html_body }
-      format.text { render text: @email.text_body }
+      format.html { render text: @email.rendered_html }
+      format.text { render text: @email.rendered_text }
     end
   end
 
@@ -53,7 +53,7 @@ class EmailsController < ApplicationController
   private
 
   def email_params
-    params.require(:email).permit(:title, :content)
+    params.require(:email).permit(:name, :html, :text)
   end
 
   def find_email
