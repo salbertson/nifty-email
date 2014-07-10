@@ -5,6 +5,22 @@ class Email < ActiveRecord::Base
 
   validates :name, presence: true
 
+  def rendered_html(attributes = {})
+    html = super()
+    attributes.each do |name, value|
+      html.gsub!(/{{ #{name} }}/, value)
+    end
+    html
+  end
+
+  def rendered_text(attributes = {})
+    text = super()
+    attributes.each do |name, value|
+      text.gsub!(/{{ #{name} }}/, value)
+    end
+    text
+  end
+
   private
 
   def generate_slug

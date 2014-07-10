@@ -4,8 +4,8 @@ class Api::EmailsController < ApplicationController
 
     if @email
       render json: {
-        html: @email.rendered_html,
-        text: @email.rendered_text
+        html: @email.rendered_html(params),
+        text: @email.rendered_text(params)
       }
     else
       head 404
