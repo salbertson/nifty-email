@@ -23,6 +23,11 @@ gem 'title'
 gem 'uglifier'
 gem 'unicorn'
 
+group :staging, :production do
+  gem 'newrelic_rpm', '>= 3.7.3'
+  gem 'rails_12factor'
+end
+
 group :development do
   gem 'foreman'
   gem 'spring'
@@ -45,8 +50,4 @@ group :test do
   gem 'simplecov', require: false
   gem 'timecop'
   gem 'webmock'
-end
-
-group :staging, :production do
-  gem 'newrelic_rpm', '>= 3.7.3'
 end
