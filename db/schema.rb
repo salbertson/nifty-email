@@ -11,10 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140701143650) do
+ActiveRecord::Schema.define(version: 20140712010316) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "api_tokens", force: true do |t|
+    t.string "token"
+  end
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
@@ -34,9 +38,9 @@ ActiveRecord::Schema.define(version: 20140701143650) do
 
   create_table "emails", force: true do |t|
     t.string "slug"
-    t.string "name",          null: false
     t.text   "html"
     t.text   "text"
+    t.string "name",          null: false
     t.text   "rendered_html"
     t.text   "rendered_text"
   end
