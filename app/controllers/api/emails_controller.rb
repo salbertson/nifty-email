@@ -1,13 +1,9 @@
 class Api::EmailsController < ApplicationController
-  before_action :authenticate
-
   def show
-    @email = find_email
-
-    if @email
+    if email
       render json: {
-        html: @email.rendered_html(params),
-        text: @email.rendered_text(params)
+        html: email.rendered_html(params),
+        text: email.rendered_text(params)
       }
     else
       head 404
@@ -16,13 +12,20 @@ class Api::EmailsController < ApplicationController
 
   private
 
-  def authenticate
+  def authorize
     authenticate_or_request_with_http_token do |token, options|
-      ApiToken.find_by(token: token)
+      @token = ApiToken.find_by(token: token)
     end
   end
 
-  def find_email
-    Email.find_by(slug: params[:id]) || Email.find(params[:id])
+  def email
+    @email ||= begin
+      current_user.emails.find_by(slug: params[:id]) ||
+        current_user.emails.find(params[:id])
+    end
+  end
+
+  def current_user
+    @current_user ||= @token.user
   end
 end

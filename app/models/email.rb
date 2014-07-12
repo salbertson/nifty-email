@@ -1,4 +1,6 @@
 class Email < ActiveRecord::Base
+  belongs_to :user
+
   before_create :generate_slug
   before_save :render_html
   before_save :render_text

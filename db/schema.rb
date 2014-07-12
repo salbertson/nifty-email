@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140712010316) do
+ActiveRecord::Schema.define(version: 20140712042527) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "api_tokens", force: true do |t|
-    t.string "token"
+    t.string  "token",   null: false
+    t.integer "user_id", null: false
   end
 
   create_table "delayed_jobs", force: true do |t|
@@ -37,14 +38,27 @@ ActiveRecord::Schema.define(version: 20140712010316) do
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "emails", force: true do |t|
-    t.string "slug"
-    t.text   "html"
-    t.text   "text"
-    t.string "name",          null: false
-    t.text   "rendered_html"
-    t.text   "rendered_text"
+    t.string  "slug"
+    t.text    "html"
+    t.text    "text"
+    t.string  "name",          null: false
+    t.text    "rendered_html"
+    t.text    "rendered_text"
+    t.integer "user_id",       null: false
   end
 
-  add_index "emails", ["slug"], name: "index_emails_on_slug", unique: true, using: :btree
+  add_index "emails", ["slug", "user_id"], name: "index_emails_on_slug_and_user_id", unique: true, using: :btree
+
+  create_table "users", force: true do |t|
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.string   "email",                          null: false
+    t.string   "encrypted_password", limit: 128, null: false
+    t.string   "confirmation_token", limit: 128
+    t.string   "remember_token",     limit: 128, null: false
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", using: :btree
+  add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
 
 end

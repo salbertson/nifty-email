@@ -1,6 +1,6 @@
 class EmailsController < ApplicationController
   def index
-    @emails = Email.all
+    @emails = current_user.emails.all
   end
 
   def show
@@ -13,11 +13,11 @@ class EmailsController < ApplicationController
   end
 
   def new
-    @email = Email.new
+    @email = current_user.emails.new
   end
 
   def create
-    @email = Email.new(email_params)
+    @email = current_user.emails.new(email_params)
 
     if @email.save
       redirect_to emails_path, notice: 'Email created!'
@@ -57,6 +57,6 @@ class EmailsController < ApplicationController
   end
 
   def find_email
-    Email.find(params[:id])
+    current_user.emails.find(params[:id])
   end
 end

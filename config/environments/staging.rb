@@ -5,5 +5,5 @@ Mail.register_interceptor RecipientInterceptor.new(ENV['EMAIL_RECIPIENTS'])
 Rails.application.configure do
   # ...
 
-  config.action_mailer.default_url_options = { host: 'staging.nifty-email.com' }
+  config.action_mailer.default_url_options = { host: 'nifty-email-staging.herokuapp.com' }
 end
