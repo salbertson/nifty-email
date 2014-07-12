@@ -9,7 +9,7 @@
 </head>
 <body class="<%= body_class %>">
   <% if signed_in? %>
-    <%= link_to 'Sign out', sign_out_path, :method => :delete %>
+    <%= link_to 'Emails', emails_path %> | <%= link_to 'Account', account_path %> | <%= link_to 'Sign out', sign_out_path, :method => :delete %>
   <% end %>
   <%= render 'flashes' -%>
   <%= yield %>
