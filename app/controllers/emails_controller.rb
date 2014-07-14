@@ -53,7 +53,7 @@ class EmailsController < ApplicationController
   private
 
   def email_params
-    params.require(:email).permit(:name, :html, :text)
+    params.require(:email).permit(:name, :slug, :html, :text)
   end
 
   def find_email

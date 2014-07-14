@@ -1,5 +1,6 @@
 <%= simple_form_for(email) do |form| %>
   <%= form.input :name %>
+  <%= form.input :slug if email.persisted? %>
   <%= form.input :html %>
   <%= form.input :text %>
   <%= form.button :submit %>
