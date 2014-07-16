@@ -6,7 +6,12 @@ class Api::EmailsController < ApplicationController
         text: email.rendered_text(params)
       }
     else
-      head 404
+      render(
+        json: {
+          error: 'Email does not exist. Make sure the slug is correct.'
+        },
+        status: 404
+      )
     end
   end
 
@@ -21,7 +26,7 @@ class Api::EmailsController < ApplicationController
   def email
     @email ||= begin
       current_user.emails.find_by(slug: params[:id]) ||
-        current_user.emails.find(params[:id])
+        current_user.emails.find_by(id: params[:id])
     end
   end
 
