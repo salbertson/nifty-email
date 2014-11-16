@@ -1,6 +1,8 @@
 Nifty-email
 ===========
 
+https://nifty-email-production.herokuapp.com
+
 Getting Started
 ---------------
 
